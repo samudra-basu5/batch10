@@ -1,0 +1,36 @@
+---
+- hosts: localhost
+  become: true
+  tasks:
+  - name: install maven
+    apt:
+      pkg: maven
+      state: present
+    notify:
+    - run update
+  - name: Install OpenJDK Java
+    become: yes
+    apt:
+      name: "{{ item }}"
+      state: present
+    with_items:
+     openjdk-8-jdk
+  - name: install nginx
+    apt:
+      pkg: nginx
+      state: present
+  - name: install docker
+    apt:
+      pkg: docker.io
+      state: present
+  - name: start docker service
+    service:
+      name: docker
+      state: started
+      enabled: true
+  - name: deploy wartest application
+    command: sudo docker run -it -d -p 8888:8888 samudrabasu567/batch10:1.0
+  handlers:
+  - name: run update
+    apt:
+      update_cache: yes
