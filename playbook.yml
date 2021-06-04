@@ -7,7 +7,7 @@
       state: started
       enabled: true
   - name: deploy test application
-    command: docker run -it -d -p 8888:8888 samudrabasu567/batch10:20.0
+    command: docker run -it -d -p 8888:8888 samudrabasu567/batch10:25.0
   handlers:
   - name: run update
     apt:
