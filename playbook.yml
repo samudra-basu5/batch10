@@ -1,17 +1,13 @@
 ---
 - hosts: localhost
   tasks:
-  - name: install docker
-    apt:
-      pkg: docker.io
-      state: present
-  - name: start docker service
+- name: start docker service
     service:
       name: docker
       state: started
       enabled: true
-  - name: deploy wartest application
-    command: sudo docker run -it -d -p 8888:8888 samudrabasu567/batch10:1.0
+  - name: deploy test application
+    command: docker run -it -d -p 8888:8888 samudrabasu567/batch10:1.0
   handlers:
   - name: run update
     apt:
